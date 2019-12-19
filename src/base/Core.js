@@ -7,18 +7,18 @@
  */
 export class Core {
 
-  // option = null
-  // index = null
-  // //默认信息 default prop
-  // defaults = {
-  //   className: '',
-  //   parent:    document.body,
-  //   delay:     0
-  // }
-  // props = {}
-  // //模型元素
-  // el = null
+  /**
+   * @protected option
+   * @private index
+   * @private defaults = { className: '', parent: document.body, delay: 0 }
+   * @private prop
+   * @protected el
+   */
 
+  /**
+   * @public
+   * @param option
+   */
   constructor (option = {}) {
     this.option = option
     this.index = this.option.index || 0
