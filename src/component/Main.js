@@ -8,6 +8,8 @@
 import Mojs from '@mojs/core'
 import { Core } from '../base/Core'
 import { MainInEffect } from './effect/MainInEffect'
+import { SVG_PATH } from '../base/Constant'
+import { GoodBye } from './GoodBye'
 
 export class Main extends Core {
 
@@ -44,8 +46,40 @@ export class Main extends Core {
      */
     let mainInEffect = new MainInEffect({el: this.effectEl})
 
+    const duration = 2000
+    const delay = 420
+    const rotateCurve = Mojs.easing.path(SVG_PATH.ROTATE)
+
+    const box = new Mojs.Shape({
+      className: 'marisa-box',
+      parent: this.el,
+      shape: 'rect',
+      fill: 'none',
+      radiusX: 150,
+      radiusY: 300,
+      scale: {0.6: 1},
+      opacity: {0.1: 1},
+      duration: duration,
+      delay: delay,
+      onComplete: (isForward, isYoyo) => {
+        this.addListeners()
+      }
+    })
+      .then({
+        duration: 2000,
+        repeat: 999999,
+        onUpdate: (ep, p) => {
+          let rotateP = rotateCurve(p)
+          box.el.style['transform'] = `rotate(${-10 * rotateP}deg)`
+          box.el.style['transform-origin'] = `${10 + 55 * rotateP}% ${80 * 10 * rotateP}%)`
+        }
+      })
+    this.box = box
+
+    let goodBye = new GoodBye({parent: this.el})
+
     this.timeline = new Mojs.Timeline
-    this.timeline.add(mainInEffect)
+    this.timeline.add(box, mainInEffect, goodBye)
 
     return this
   }
@@ -55,5 +89,11 @@ export class Main extends Core {
    */
   init() {
     this.timeline.play()
+  }
+
+  addListeners() {
+    this.box.el.addEventListener('click', e => {
+      window.location.href = 'https://github.com/gutrse3321/marisa-end'
+    })
   }
 }

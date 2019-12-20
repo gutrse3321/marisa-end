@@ -121,7 +121,7 @@ export class Start extends Core {
       shape: 'cross',
       parent: content.el,
       fill: 'none',
-      stroke: '#A50710',
+      stroke: COLOR.BLACK,
       radius: 7,
       strokeLinecap: 'round',
       isShowStart: true,

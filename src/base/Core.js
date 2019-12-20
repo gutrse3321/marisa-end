@@ -196,4 +196,25 @@ export class Core {
     this.el.appendChild(child)
     return child
   }
+
+  /**
+   * @protected
+   * @param tagName
+   * @param className
+   * @returns {HTMLElement}
+   */
+  createElementWithClassName(tagName, className) {
+    let tag = (tagName == '' || tagName == undefined || tagName == null) ? 'div' : tagName
+    let ele = this.createElement(tag)
+
+    if (className) {
+      let classes = className.split(' ')
+
+      for (let i = 0; i < classes.length; i++) {
+        ele.classList.add(classes[i])
+      }
+    }
+
+    return ele
+  }
 }
